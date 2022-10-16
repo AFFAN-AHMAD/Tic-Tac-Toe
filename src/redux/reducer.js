@@ -5,7 +5,7 @@ const init = {
   gameDraw: false,
   count: 0,
   playersName: ["player1", "player2"],
-  limit: 0,
+  limit: 10,
 };
 
 export const reducer = (state = init, action) => {

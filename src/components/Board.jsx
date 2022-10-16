@@ -2,7 +2,8 @@ import { useDisclosure } from "@chakra-ui/react";
 import React ,{useRef,useEffect, useState} from "react";
 import Block from "./Block";
 import BasicUsage from "./modal/Modal";
-
+import Timer from "./timer/Timer";
+import TimerTwo from "../timer2/TimerTwo";
 function Board({
   marks,
   player,
@@ -19,15 +20,17 @@ function Board({
   playersName,
   setPlayersName
 }) {
- console.log("limit",limit)
- console.log("playersName",playersName)
+
   var refOfDraw = useRef(null);
-  const [player1Name,setplayer1Name] = useState("player1")
-  const [player2Name,setplayer2Name] = useState("player2");
-// const {onOpen,isOpen} =useDisclosure()
+// Modal
 const [onOpen,setOpen] = useState(false)
 const [isOpen,setIsOpen] = useState(false)
 
+// Timer
+const [start,setStart] = useState(false);
+const [reset,setReset] =useState(false);
+const [stop,setStop] = useState(false)
+const [pause,setPause] =useState(false)
   useEffect(() => {
     let combinations = [
       [0, 1, 2],
@@ -44,8 +47,11 @@ const [isOpen,setIsOpen] = useState(false)
       if (marks[key[0]] == 1 && marks[key[1]] == 1 && marks[key[2]] == 1) {
         setGameOver(true);
         refOfDraw.current && clearTimeout(refOfDraw.current);
+        setStop((state)=>state==true?false:true)
+
         setTimeout(() => {
           return alert(`${playersName[0]} won the match`);
+
         }, 0);
       } else if (
         marks[key[0]] == 2 &&
@@ -53,16 +59,23 @@ const [isOpen,setIsOpen] = useState(false)
         marks[key[2]] == 2
       ) {
         setGameOver(true);
+        setStop((state)=>state==true?false:true)
+
         refOfDraw.current && clearTimeout(refOfDraw.current);
         setTimeout(() => {
           return alert(`${playersName[1]} won the match`);
         }, 0);
       }
     }
-  }, marks);
+   
+  }, [marks]);
+  
   const changeMarks = (i) => {
+
     if (gameOver) {
       return alert("game over start a new match");
+    }else{
+      setReset((state)=>state==true?false:true)
     }
     if (gameDraw) {
       return alert("please start a new game");
@@ -96,12 +109,13 @@ const [isOpen,setIsOpen] = useState(false)
     <>
     <div className="gameName">
         <h1>TIC TAC TOE</h1>
+        <Timer limit={limit} start={start} reset={reset} stop={stop}/>
     </div>
      <div className="board">
-        
       <div className="player">
-       
         <h1>{playersName[0]}</h1>
+       
+       
       </div>
       <div>
         <div>
@@ -164,6 +178,7 @@ const [isOpen,setIsOpen] = useState(false)
             setGameDraw(false);
             setCount(0);
             setPlayer(1);
+            setStart((state)=>state==true?false:true)
           }}
         >
          New Match
@@ -177,7 +192,7 @@ const [isOpen,setIsOpen] = useState(false)
       </div>
       <div className="player">
         
-         <h1 >{playersName[1]}</h1>
+         <h1 >{playersName[1]}</h1>         
       </div>
     </div></>
    
