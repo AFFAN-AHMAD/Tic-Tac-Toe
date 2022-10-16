@@ -1,3 +1,11 @@
+.gameName{
+  font-size: 70px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-align: center;
+  margin: auto;
+}
+
 .block{
   width:70px;
   height:70px;
@@ -11,7 +19,7 @@
 }
 .board{
   text-align: center;
-  margin-top: 140px;
+  margin-top: 90px;
   display: flex;
   justify-content: space-between;
   padding: 20px;
@@ -34,7 +42,8 @@
   background-color: rgb(173, 79, 173);
   color: white;
   border-radius: 10px;
-  padding: 5px;
+  padding: 5px 8px;
   letter-spacing: 1px;
   margin-top: 10px;
+font-weight: 700;
 }

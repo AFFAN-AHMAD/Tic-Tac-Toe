@@ -1,5 +1,8 @@
-import React ,{useRef,useEffect} from "react";
+import { useDisclosure } from "@chakra-ui/react";
+import React ,{useRef,useEffect, useState} from "react";
 import Block from "./Block";
+import BasicUsage from "./modal/Modal";
+
 function Board({
   marks,
   player,
@@ -14,6 +17,12 @@ function Board({
 }) {
  
   var refOfDraw = useRef(null);
+  const [player1Name,setplayer1Name] = useState("player1")
+  const [player2Name,setplayer2Name] = useState("player2");
+// const {onOpen,isOpen} =useDisclosure()
+const [onOpen,setOpen] = useState(false)
+const [isOpen,setIsOpen] = useState(false)
+
   useEffect(() => {
     let combinations = [
       [0, 1, 2],
@@ -79,7 +88,12 @@ function Board({
     }
   };
   return (
-    <div className="board">
+    <>
+    <div className="gameName">
+        <h1>TIC TAC TOE</h1>
+    </div>
+     <div className="board">
+        
       <div className="player">
         <h1>Player1</h1>
       </div>
@@ -135,7 +149,8 @@ function Board({
             changeMarks={changeMarks}
           ></Block>
         </div>
-        <button
+      <div style={{display:"flex",justifyContent:"space-around"}}>
+          <button
           className="button"
           onClick={() => {
             setMarks([0, 0, 0, 0, 0, 0, 0, 0, 0]);
@@ -145,13 +160,20 @@ function Board({
             setPlayer(1);
           }}
         >
-          new match
+          New Match
         </button>
+        <BasicUsage onOpen={onOpen} isOpen={isOpen} setOpen={setOpen} />
+        <button className="button" onClick={()=>{
+            setOpen(true)
+            setIsOpen(true)
+        }}>Settings</button>
+      </div>
       </div>
       <div className="player">
         <h1>Player2</h1>
       </div>
-    </div>
+    </div></>
+   
   );
 }
 

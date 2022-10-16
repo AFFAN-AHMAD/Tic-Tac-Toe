@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { connect, Provider } from "react-redux";
 import { legacy_createStore as createStore } from "redux";
 import { reducer } from "./redux/reducer";
-import BasicUsage from "./components/Modal";
+// import BasicUsage from "./components/Modal";
 import { useToast } from "@chakra-ui/react";
 import Block from "./components/Block";
 import Board from "./components/Board";
@@ -13,6 +13,7 @@ function App() {
   return (
     <div className="App">
       <Provider store={store}>
+       
         <BoardContainer className="board"></BoardContainer>
       </Provider>
     </div>
