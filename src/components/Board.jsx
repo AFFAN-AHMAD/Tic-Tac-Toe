@@ -177,7 +177,7 @@ const [isOpen,setIsOpen] = useState(false)
       </div>
       <div className="player">
         
-         <h1>{playersName[1]}</h1>
+         <h1 >{playersName[1]}</h1>
       </div>
     </div></>
    

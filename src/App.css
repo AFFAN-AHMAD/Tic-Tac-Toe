@@ -27,6 +27,9 @@
 .player{
   text-align: center;
   margin: 0px auto;
+  font-size: 30px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 .mark1{
   background-image: url("./assets/cross.jfif");

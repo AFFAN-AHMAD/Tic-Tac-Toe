@@ -18,8 +18,8 @@ import {
 } from '@chakra-ui/react'
 import styles from "./Modal.module.css"
 function BasicUsage({isOpen,onOpen,setOpen,setLimit,setPlayersName}) {
-  const [player1,setPlayer1] =useState("")
-  const [player2,setPlayer2] =useState("")
+  const [player1,setPlayer1] =useState("player1")
+  const [player2,setPlayer2] =useState("player2")
   const [limitNow,setLimitNow] = useState(0)
   const handleClose = ()=>{
     setPlayersName([player1,player2]);
@@ -36,11 +36,11 @@ function BasicUsage({isOpen,onOpen,setOpen,setLimit,setPlayersName}) {
           <ModalHeader fontWeight={"700"} fontSize={"25px"}>Settings</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-          <FormControl>
+          <FormControl isRequired={true}>
             {/* player 1 name */}
             <Flex className={styles.inputContainer}>
             <label style={{fontWeight:"bold"}}>Player 1</label>
-            <Input placeholder='player1' onChange={(e)=>{setPlayer1(e.currentTarget.value)}} w="50%"/>
+            <Input placeholder='player1' onChange={(e)=>{setPlayer1(e.currentTarget.value)}} w="50%" />
             </Flex>
             {/* player 2 name */}
              <Flex className={styles.inputContainer}>
