@@ -13,7 +13,6 @@ function App() {
   return (
     <div className="App">
       <Provider store={store}>
-       
         <BoardContainer className="board"></BoardContainer>
       </Provider>
     </div>
@@ -27,6 +26,8 @@ const mapStateToProps = (state) => {
     gameOver: state.gameOver,
     gameDraw: state.gameDraw,
     count: state.count,
+    playersName: state.playersName,
+    limit: state.limit,
   };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -46,10 +47,15 @@ const mapDispatchToProps = (dispatch) => {
     setCount: (count) => {
       dispatch({ type: "SET_COUNT", payload: count });
     },
+    setPlayersName: (playersName) => {
+      dispatch({ type: "SET_NAMES", payload: playersName });
+    },
+    setLimit: (limit) => {
+      console.log(limit);
+      dispatch({ type: "SET_LIMIT", payload: limit });
+    },
   };
 };
 const BoardContainer = connect(mapStateToProps, mapDispatchToProps)(Board);
-
-
 
 export default App;

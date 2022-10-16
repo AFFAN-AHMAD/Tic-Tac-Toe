@@ -17,10 +17,13 @@ import {
   Flex,
 } from '@chakra-ui/react'
 import styles from "./Modal.module.css"
-function BasicUsage({isOpen,onOpen,setOpen}) {
+function BasicUsage({isOpen,onOpen,setOpen,setLimit,setPlayersName}) {
   const [player1,setPlayer1] =useState("")
   const [player2,setPlayer2] =useState("")
+  const [limitNow,setLimitNow] = useState(0)
   const handleClose = ()=>{
+    setPlayersName([player1,player2]);
+    setLimit(limitNow)
     setOpen(false)
   }
   return (
@@ -37,17 +40,17 @@ function BasicUsage({isOpen,onOpen,setOpen}) {
             {/* player 1 name */}
             <Flex className={styles.inputContainer}>
             <label style={{fontWeight:"bold"}}>Player 1</label>
-            <Input placeholder='player1' onChange={(e)=>{console.log(e.currentTarget.value)}} w="50%"/>
+            <Input placeholder='player1' onChange={(e)=>{setPlayer1(e.currentTarget.value)}} w="50%"/>
             </Flex>
             {/* player 2 name */}
              <Flex className={styles.inputContainer}>
             <label  style={{fontWeight:"bold"}}>Player 2</label>
-            <Input placeholder='player2' onChange={(e)=>{console.log(e.currentTarget.value)}} w="50%"/>
+            <Input placeholder='player2' onChange={(e)=>{setPlayer2(e.currentTarget.value)}} w="50%"/>
             </Flex>
             {/* time limit */}
              <Flex className={styles.inputContainer}>
             <label  style={{fontWeight:"bold"}}>Time limit per move(sec) </label>
-            <Input placeholder='limit' onChange={(e)=>{console.log(e.currentTarget.value)}} w="20%" />
+            <Input placeholder='limit' onChange={(e)=>{setLimitNow(e.currentTarget.value)}} w="20%" />
             </Flex>
           </FormControl>
           </ModalBody>

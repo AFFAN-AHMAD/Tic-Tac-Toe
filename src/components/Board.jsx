@@ -14,8 +14,13 @@ function Board({
   setGameDraw,
   count,
   setCount,
+  limit,
+  setLimit,
+  playersName,
+  setPlayersName
 }) {
- 
+ console.log("limit",limit)
+ console.log("playersName",playersName)
   var refOfDraw = useRef(null);
   const [player1Name,setplayer1Name] = useState("player1")
   const [player2Name,setplayer2Name] = useState("player2");
@@ -40,7 +45,7 @@ const [isOpen,setIsOpen] = useState(false)
         setGameOver(true);
         refOfDraw.current && clearTimeout(refOfDraw.current);
         setTimeout(() => {
-          return alert("player 1 won the macth");
+          return alert(`${playersName[0]} won the match`);
         }, 0);
       } else if (
         marks[key[0]] == 2 &&
@@ -50,7 +55,7 @@ const [isOpen,setIsOpen] = useState(false)
         setGameOver(true);
         refOfDraw.current && clearTimeout(refOfDraw.current);
         setTimeout(() => {
-          return alert("player 2 won the macth");
+          return alert(`${playersName[1]} won the match`);
         }, 0);
       }
     }
@@ -95,7 +100,8 @@ const [isOpen,setIsOpen] = useState(false)
      <div className="board">
         
       <div className="player">
-        <h1>Player1</h1>
+       
+        <h1>{playersName[0]}</h1>
       </div>
       <div>
         <div>
@@ -160,9 +166,9 @@ const [isOpen,setIsOpen] = useState(false)
             setPlayer(1);
           }}
         >
-          New Match
+         New Match
         </button>
-        <BasicUsage onOpen={onOpen} isOpen={isOpen} setOpen={setOpen} />
+        <BasicUsage onOpen={onOpen} isOpen={isOpen} setOpen={setOpen} setPlayersName={setPlayersName} setLimit={setLimit}/>
         <button className="button" onClick={()=>{
             setOpen(true)
             setIsOpen(true)
@@ -170,7 +176,8 @@ const [isOpen,setIsOpen] = useState(false)
       </div>
       </div>
       <div className="player">
-        <h1>Player2</h1>
+        
+         <h1>{playersName[1]}</h1>
       </div>
     </div></>
    

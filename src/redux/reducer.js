@@ -4,6 +4,8 @@ const init = {
   gameOver: false,
   gameDraw: false,
   count: 0,
+  playersName: ["player1", "player2"],
+  limit: 0,
 };
 
 export const reducer = (state = init, action) => {
@@ -32,6 +34,17 @@ export const reducer = (state = init, action) => {
       return {
         ...state,
         count: action.payload,
+      };
+    case "SET_NAMES":
+      return {
+        ...state,
+        playersName: action.payload,
+      };
+
+    case "SET_LIMIT":
+      return {
+        ...state,
+        limit: action.payload,
       };
     default:
       return state;
