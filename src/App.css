@@ -1,0 +1,40 @@
+.block{
+  width:70px;
+  height:70px;
+  border:5px solid black;
+  background-size: cover;
+  display: inline-block;
+  margin: 3px;
+  border-radius: 13px;
+  box-sizing: border-box;
+  align-content: center;
+}
+.board{
+  text-align: center;
+  margin-top: 140px;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+.player{
+  text-align: center;
+  margin: 0px auto;
+}
+.mark1{
+  background-image: url("./assets/cross.jfif");
+ 
+  
+}
+.mark2 {
+  background-image: url("./assets/dot.png");
+
+}
+
+.button{
+  background-color: rgb(173, 79, 173);
+  color: white;
+  border-radius: 10px;
+  padding: 5px;
+  letter-spacing: 1px;
+  margin-top: 10px;
+}
