@@ -1,9 +1,9 @@
-import { useDisclosure } from "@chakra-ui/react";
+import { useToast  } from "@chakra-ui/react";
 import React ,{useRef,useEffect, useState} from "react";
 import Block from "./Block";
 import BasicUsage from "./modal/Modal";
 import Timer from "./timer/Timer";
-import TimerTwo from "../timer2/TimerTwo";
+var prev;
 function Board({
   marks,
   player,
@@ -20,7 +20,8 @@ function Board({
   playersName,
   setPlayersName
 }) {
-
+// toast
+ const toast = useToast()
   var refOfDraw = useRef(null);
 // Modal
 const [onOpen,setOpen] = useState(false)
@@ -31,6 +32,28 @@ const [start,setStart] = useState(false);
 const [reset,setReset] =useState(false);
 const [stop,setStop] = useState(false)
 const [pause,setPause] =useState(false)
+function funct(winner){
+    console.log("winner")
+    toast({
+                title: `${winner} won the match`,
+                isClosable: true,
+                position:"top",
+                status:"success",
+              })
+};
+ let  debouncing;
+const debouncer = (func,delay,winner,prev)=>{
+
+    prev&&clearTimeout(prev)
+    // debouncing&&clearTimeout(debouncing);
+    debouncing = setTimeout(() => {
+        func(winner)
+        setStop((state)=>state==true?false:true)
+    }, delay*1001);
+    return debouncing
+}
+
+
   useEffect(() => {
     let combinations = [
       [0, 1, 2],
@@ -50,7 +73,12 @@ const [pause,setPause] =useState(false)
         setStop((state)=>state==true?false:true)
 
         setTimeout(() => {
-          return alert(`${playersName[0]} won the match`);
+          return toast({
+                title: `${playersName[0]} won the match`,
+                isClosable: true,
+                position:"top",
+                status:"success",
+              })
 
         }, 0);
       } else if (
@@ -63,22 +91,45 @@ const [pause,setPause] =useState(false)
 
         refOfDraw.current && clearTimeout(refOfDraw.current);
         setTimeout(() => {
-          return alert(`${playersName[1]} won the match`);
+          return  toast({
+                title: `${playersName[1]} won the match`,
+                isClosable: true,
+                position:"top",
+                status:"success",
+              })
         }, 0);
       }
     }
    
   }, [marks]);
-  
-  const changeMarks = (i) => {
+  // let timeOut;
 
+  let winner=""
+  const changeMarks = (i) => {
+    if(player==1){
+      winner=playersName[0]
+    }else{
+      winner=playersName[1]
+    }
+  prev =debouncer(funct,limit,winner,prev)
     if (gameOver) {
-      return alert("game over start a new match");
+      return  toast({
+                title: `game over start a new match`,
+                isClosable: true,
+                position:"top",
+                status:"error",
+              })
+      //  alert("game over start a new match");
     }else{
       setReset((state)=>state==true?false:true)
     }
     if (gameDraw) {
-      return alert("please start a new game");
+      return toast({
+                title: `please start a new game`,
+                isClosable: true,
+                position:"top",
+                status:"warning",
+              })
     }
     if (marks[i] == 0) {
       const m = [...marks];
@@ -92,15 +143,26 @@ const [pause,setPause] =useState(false)
       }
       setPlayer(player);
     } else {
-      alert("select any empty box");
+      return  toast({
+                title: `please select an empty box`,
+                isClosable: true,
+                position:"top",
+                status:"warning",
+              })
     }
 
     if (count == marks.length) {
       setGameDraw(true);
+      setStop((state)=>state==true?false:true)
       console.log("draw");
       refOfDraw.current = setTimeout(() => {
         if (!gameOver) {
-          alert("Game Draw");
+          return toast({
+                title: `Draw`,
+                isClosable: true,
+                position:"top",
+                status:"error",
+              })
         }
       }, 10);
     }
@@ -113,7 +175,7 @@ const [pause,setPause] =useState(false)
     </div>
      <div className="board">
       <div className="player">
-        <h1>{playersName[0]}</h1>
+        <h1 style={{color:player==1?"green":"red",fontSize:"55px",fontWeight:"bold"}}>{playersName[0]}</h1>
        
        
       </div>
@@ -179,6 +241,7 @@ const [pause,setPause] =useState(false)
             setCount(0);
             setPlayer(1);
             setStart((state)=>state==true?false:true)
+           prev= debouncer(funct,limit,playersName[1],prev)
           }}
         >
          New Match
@@ -192,7 +255,7 @@ const [pause,setPause] =useState(false)
       </div>
       <div className="player">
         
-         <h1 >{playersName[1]}</h1>         
+         <h1 style={{color:player==2?"green":"red",fontSize:"55px",fontWeight:"bold"}} >{playersName[1]}</h1>         
       </div>
     </div></>
    
