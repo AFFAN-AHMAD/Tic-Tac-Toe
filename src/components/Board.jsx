@@ -20,6 +20,9 @@ function Board({
   playersName,
   setPlayersName
 }) {
+// player
+const [color,setColor] = useState(false)
+
 // toast
  const toast = useToast()
   var refOfDraw = useRef(null);
@@ -33,6 +36,7 @@ const [reset,setReset] =useState(false);
 const [stop,setStop] = useState(false)
 const [pause,setPause] =useState(false)
 function funct(winner){
+  toast.closeAll()
     toast({
                 title: `Time up! ${winner.toUpperCase()} won the match`,
                 isClosable: true,
@@ -49,6 +53,7 @@ const debouncer = (func,delay,winner,prev)=>{
         func(winner)
         setStop((state)=>state==true?false:true)
         setGameOver(true)
+        setColor(false)
     }, delay*1001);
     return debouncing
 }
@@ -70,8 +75,9 @@ const debouncer = (func,delay,winner,prev)=>{
       if (marks[key[0]] == 1 && marks[key[1]] == 1 && marks[key[2]] == 1) {
         setGameOver(true);
         refOfDraw.current && clearTimeout(refOfDraw.current);
+        setColor(false)
         setStop((state)=>state==true?false:true)
-
+        prev&&clearTimeout(prev)
         setTimeout(() => {
           return toast({
                 title: `${playersName[0].toUpperCase()} won the match`,
@@ -88,9 +94,11 @@ const debouncer = (func,delay,winner,prev)=>{
       ) {
         setGameOver(true);
         setStop((state)=>state==true?false:true)
-
+        setColor(false)
         refOfDraw.current && clearTimeout(refOfDraw.current);
+        prev&&clearTimeout(prev)
         setTimeout(() => {
+          toast.closeAll()
           return  toast({
                 title: `${playersName[1].toUpperCase()} won the match`,
                 isClosable: true,
@@ -107,6 +115,7 @@ const debouncer = (func,delay,winner,prev)=>{
   let winner=""
   const changeMarks = (i) => {
     if(pause==false){
+      toast.closeAll()
        return  toast({
                 title: "start the game on clinking the New Match button below",
                 isClosable: true,
@@ -121,6 +130,7 @@ const debouncer = (func,delay,winner,prev)=>{
     }
   prev =debouncer(funct,limit,winner,prev)
     if (gameOver) {
+      toast.closeAll()
       return  toast({
                 title: `Game Over! start a new match`,
                 isClosable: true,
@@ -151,6 +161,7 @@ const debouncer = (func,delay,winner,prev)=>{
       }
       setPlayer(player);
     } else {
+      toast.closeAll()
       return  toast({
                 title: `please select an Empty Box`,
                 isClosable: true,
@@ -162,8 +173,10 @@ const debouncer = (func,delay,winner,prev)=>{
     if (count == marks.length) {
       setGameDraw(true);
       setStop((state)=>state==true?false:true)
+      setColor(false)
       refOfDraw.current = setTimeout(() => {
         if (!gameOver) {
+
           return toast({
                 title: `Draw!`,
                 isClosable: true,
@@ -182,8 +195,10 @@ const debouncer = (func,delay,winner,prev)=>{
     </div>
      <div className="board">
       <div className="player">
-        <h1 style={{color:player==1?"green":"red",fontWeight:"bold"}}>{playersName[0]}</h1>
-       
+     {
+          color? <h1 style={{color:player==1?"green":"red",fontWeight:"bold"}} >{playersName[0]}</h1> :
+          <h1 style={{fontWeight:"bold"}}>{playersName[0]}</h1>
+        }
        
       </div>
       <div>
@@ -241,6 +256,7 @@ const debouncer = (func,delay,winner,prev)=>{
           <button
           className="button"
           onClick={() => {
+            toast.closeAll()
             setMarks([0, 0, 0, 0, 0, 0, 0, 0, 0]);
             setGameOver(false);
             setGameDraw(false);
@@ -248,6 +264,7 @@ const debouncer = (func,delay,winner,prev)=>{
             setPlayer(1);
             setPause(true)
             setStart((state)=>state==true?false:true)
+            setColor(true)
            prev= debouncer(funct,limit,playersName[1],prev)
           }}
         >
@@ -263,8 +280,11 @@ const debouncer = (func,delay,winner,prev)=>{
     
       </div>
       <div className="player">
-        
-         <h1 style={{color:player==2?"green":"red",fontWeight:"bold"}} >{playersName[1]}</h1>         
+        {
+          color? <h1 style={{color:player==2?"green":"red",fontWeight:"bold"}} >{playersName[1]}</h1> :
+          <h1 style={{fontWeight:"bold"}}>{playersName[1]}</h1>
+        }
+                
       </div>
     </div></>
    
