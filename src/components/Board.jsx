@@ -33,9 +33,8 @@ const [reset,setReset] =useState(false);
 const [stop,setStop] = useState(false)
 const [pause,setPause] =useState(false)
 function funct(winner){
-    console.log("winner")
     toast({
-                title: `${winner} won the match`,
+                title: `Time up! ${winner.toUpperCase()} won the match`,
                 isClosable: true,
                 position:"top",
                 status:"success",
@@ -49,6 +48,7 @@ const debouncer = (func,delay,winner,prev)=>{
     debouncing = setTimeout(() => {
         func(winner)
         setStop((state)=>state==true?false:true)
+        setGameOver(true)
     }, delay*1001);
     return debouncing
 }
@@ -74,7 +74,7 @@ const debouncer = (func,delay,winner,prev)=>{
 
         setTimeout(() => {
           return toast({
-                title: `${playersName[0]} won the match`,
+                title: `${playersName[0].toUpperCase()} won the match`,
                 isClosable: true,
                 position:"top",
                 status:"success",
@@ -92,7 +92,7 @@ const debouncer = (func,delay,winner,prev)=>{
         refOfDraw.current && clearTimeout(refOfDraw.current);
         setTimeout(() => {
           return  toast({
-                title: `${playersName[1]} won the match`,
+                title: `${playersName[1].toUpperCase()} won the match`,
                 isClosable: true,
                 position:"top",
                 status:"success",
@@ -106,6 +106,14 @@ const debouncer = (func,delay,winner,prev)=>{
 
   let winner=""
   const changeMarks = (i) => {
+    if(pause==false){
+       return  toast({
+                title: "start the game on clinking the New Match button below",
+                isClosable: true,
+                position:"top",
+                status:"error",
+              })
+    }
     if(player==1){
       winner=playersName[0]
     }else{
@@ -114,7 +122,7 @@ const debouncer = (func,delay,winner,prev)=>{
   prev =debouncer(funct,limit,winner,prev)
     if (gameOver) {
       return  toast({
-                title: `game over start a new match`,
+                title: `Game Over! start a new match`,
                 isClosable: true,
                 position:"top",
                 status:"error",
@@ -125,7 +133,7 @@ const debouncer = (func,delay,winner,prev)=>{
     }
     if (gameDraw) {
       return toast({
-                title: `please start a new game`,
+                title: `Game Over! please start a new game`,
                 isClosable: true,
                 position:"top",
                 status:"warning",
@@ -144,7 +152,7 @@ const debouncer = (func,delay,winner,prev)=>{
       setPlayer(player);
     } else {
       return  toast({
-                title: `please select an empty box`,
+                title: `please select an Empty Box`,
                 isClosable: true,
                 position:"top",
                 status:"warning",
@@ -154,11 +162,10 @@ const debouncer = (func,delay,winner,prev)=>{
     if (count == marks.length) {
       setGameDraw(true);
       setStop((state)=>state==true?false:true)
-      console.log("draw");
       refOfDraw.current = setTimeout(() => {
         if (!gameOver) {
           return toast({
-                title: `Draw`,
+                title: `Draw!`,
                 isClosable: true,
                 position:"top",
                 status:"error",
@@ -175,7 +182,7 @@ const debouncer = (func,delay,winner,prev)=>{
     </div>
      <div className="board">
       <div className="player">
-        <h1 style={{color:player==1?"green":"red",fontSize:"55px",fontWeight:"bold"}}>{playersName[0]}</h1>
+        <h1 style={{color:player==1?"green":"red",fontWeight:"bold"}}>{playersName[0]}</h1>
        
        
       </div>
@@ -230,8 +237,7 @@ const debouncer = (func,delay,winner,prev)=>{
             position={8}
             changeMarks={changeMarks}
           ></Block>
-        </div>
-      <div style={{display:"flex",justifyContent:"space-around"}}>
+            <div className="buttonContainer" >
           <button
           className="button"
           onClick={() => {
@@ -240,6 +246,7 @@ const debouncer = (func,delay,winner,prev)=>{
             setGameDraw(false);
             setCount(0);
             setPlayer(1);
+            setPause(true)
             setStart((state)=>state==true?false:true)
            prev= debouncer(funct,limit,playersName[1],prev)
           }}
@@ -252,10 +259,12 @@ const debouncer = (func,delay,winner,prev)=>{
             setIsOpen(true)
         }}>Settings</button>
       </div>
+        </div>
+    
       </div>
       <div className="player">
         
-         <h1 style={{color:player==2?"green":"red",fontSize:"55px",fontWeight:"bold"}} >{playersName[1]}</h1>         
+         <h1 style={{color:player==2?"green":"red",fontWeight:"bold"}} >{playersName[1]}</h1>         
       </div>
     </div></>
    

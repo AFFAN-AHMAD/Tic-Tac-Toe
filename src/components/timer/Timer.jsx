@@ -5,29 +5,22 @@ const Timer = ({start,limit,reset,stop,pause,player}) => {
     let [counter,setCounter]  = useState(10);
     let [secCounter,setSecCounter] = useState(limit);
     let [isRunning,setRunning] =useState(false);
-    console.log(limit,"limit",secCounter)
    useEffect(()=>{
         handlePause()
-      console.log("pause")
     },[pause])
     useEffect(()=>{
         setSecCounter(limit)
-       console.log("limit")
     },[reset,limit])
      useEffect(()=>{
             handleStart()
             setSecCounter(limit);
-            console.log("start")
     },[start])
     useEffect(()=>{
         handleReset()
-       console.log("reset")
     },[reset])
     useEffect(()=>{
              handleStop()
-             console.log("stop")
             
-    //    console.log("stop")
     },[stop])
     
     const ref= useRef(null)
@@ -70,10 +63,10 @@ const Timer = ({start,limit,reset,stop,pause,player}) => {
    },[secCounter])
    
   return (
-    <div>
+    <>
         <h1>{secCounter}:{counter}</h1>
         
-    </div>
+    </>
   )
 }
 
