@@ -169,7 +169,7 @@ const debouncer = (func,delay,winner,prev)=>{
                 position:"top",
                 status:"warning",
               })
-    }
+    }  
 
     if (count == marks.length) {
       setGameDraw(true);
@@ -191,7 +191,7 @@ const debouncer = (func,delay,winner,prev)=>{
   return (
     <>
     <div className="gameName">
-        <h1>TIC TAC TOE</h1>
+        <h1 className="game" >TIC TAC TOE</h1>
         <Timer limit={limit} start={start} reset={reset} stop={stop}/>
     </div>
      <div className="board">

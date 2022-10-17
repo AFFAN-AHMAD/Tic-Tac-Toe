@@ -30,7 +30,7 @@ function BasicUsage({isOpen,onOpen,setOpen,setLimit,setPlayersName}) {
     <>
       {/* <Button onClick={onOpen}>Open Modal</Button> */}
 
-      <Modal isOpen={onOpen} onClose={handleClose}>
+      <Modal isOpen={onOpen} onClose={handleClose} className={styles.Modal}>
         <ModalOverlay />
         <ModalContent style={{textAlign:"center",alignContent:"center"}}>
           <ModalHeader fontWeight={"700"} fontSize={"25px"}>Settings</ModalHeader>
