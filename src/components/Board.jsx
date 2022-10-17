@@ -79,6 +79,7 @@ const debouncer = (func,delay,winner,prev)=>{
         setStop((state)=>state==true?false:true)
         prev&&clearTimeout(prev)
         setTimeout(() => {
+        toast.closeAll()
           return toast({
                 title: `${playersName[0].toUpperCase()} won the match`,
                 isClosable: true,
