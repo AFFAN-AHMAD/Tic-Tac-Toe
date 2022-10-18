@@ -2,17 +2,17 @@
 .App{
   border:5px solid;
   width: 99%;
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   padding: 10px;
-  margin: auto  ;
+  margin:  auto  ;
   border-radius: 20px;
   /* background: linear-gradient(to bottom right, #FF6868,#C668FF); */
   background: linear-gradient( to bottom right, #C193C5,#7BC6CC);
     /* background: linear-gradient(to bottom right, #FF6868,#C193C5,#7BC6CC,#C668FF,#FD6868 ,#C668FF); */
   color: white;
-    position: sticky;
-    top :40px;
     font-family: 'Pacifico';
+    /* border: 2px solid black; */
+    height: 100vh;
 }
         /* background: linear-gradient(to bottom right, #FF6868,#C668FF); */
     /* background: linear-gradient( to bottom right, #C193C5,#7BC6CC); */
@@ -38,10 +38,14 @@
 }
 .board{
   text-align: center;
-  /* margin-top: 50px; */
+  margin-top: 50px;
   display: flex;
   justify-content: space-between;
   padding: 20px;
+  border: 2px solid;
+  border-radius: 10px;
+  /* text-align: center; */
+  align-items: center;
 }
 .player{
   text-align: center;
