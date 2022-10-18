@@ -140,7 +140,9 @@ const debouncer = (func,delay,winner,prev)=>{
               })
       //  alert("game over start a new match");
     }else{
-      setReset((state)=>state==true?false:true)
+      if(marks[i]==0){
+        setReset((state)=>state==true?false:true)
+      }
     }
     if (gameDraw) {
        toast.closeAll()
