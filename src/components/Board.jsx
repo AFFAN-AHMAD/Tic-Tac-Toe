@@ -178,6 +178,7 @@ const debouncer = (func,delay,winner,prev)=>{
       setGameDraw(true);
       setStop((state)=>state==true?false:true)
       setColor(false)
+      clearTimeout(prev)
       refOfDraw.current = setTimeout(() => {
         if (!gameOver) {
 
