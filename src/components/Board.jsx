@@ -143,6 +143,7 @@ const debouncer = (func,delay,winner,prev)=>{
       setReset((state)=>state==true?false:true)
     }
     if (gameDraw) {
+       toast.closeAll()
       return toast({
                 title: `Game Over! please start a new game`,
                 isClosable: true,
@@ -178,12 +179,15 @@ const debouncer = (func,delay,winner,prev)=>{
       refOfDraw.current = setTimeout(() => {
         if (!gameOver) {
 
-          return toast({
+           toast({
                 title: `Draw!`,
                 isClosable: true,
                 position:"top",
                 status:"error",
               })
+
+              setGameOver(true)
+              return
         }
       }, 10);
     }
@@ -267,6 +271,8 @@ const debouncer = (func,delay,winner,prev)=>{
             setStart((state)=>state==true?false:true)
             setColor(true)
            prev= debouncer(funct,limit,playersName[1],prev)
+
+           console.log("new match")
           }}
         >
          New Match
