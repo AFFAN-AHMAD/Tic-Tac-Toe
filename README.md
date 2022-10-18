@@ -18,3 +18,6 @@ Implementation of the `timeOuts` and `timeIntervals` is like playing with fire. 
 ## Features to be added in Future
 
 Implementation of web-sockets to make this truly multiplayer, and chatting feature will we added too.
+
+## Tech Stacks used are
+HTML CSS Javascript React Redux Chakra-UI
