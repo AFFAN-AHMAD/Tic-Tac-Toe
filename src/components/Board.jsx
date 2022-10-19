@@ -154,6 +154,7 @@ const debouncer = (func,delay,winner,prev)=>{
               })
     }
     if (marks[i] == 0) {
+      toast.closeAll()
       const m = [...marks];
       m[i] = player;
       setMarks(m);
