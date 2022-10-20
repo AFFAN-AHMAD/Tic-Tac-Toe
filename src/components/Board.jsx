@@ -118,7 +118,7 @@ const debouncer = (func,delay,winner,prev)=>{
     if(pause==false){
       toast.closeAll()
        return  toast({
-                title: "start the game on clinking the New Match button below",
+                title: "start the game by clinking on the New Match button below",
                 isClosable: true,
                 position:"top",
                 status:"error",
